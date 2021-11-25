@@ -3,13 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".descriptionFragment">
+    tools:context=".descriptionFragment"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/text_view_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:id="@+id/text_view_description"/>
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/text_view_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:textSize="30sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textSize="20sp"
+        android:gravity="end"
+        android:id="@+id/text_view_date"/>
 
 </LinearLayout>
