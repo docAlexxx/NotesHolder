@@ -11,6 +11,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         NotesFragment notesFragment = new NotesFragment();
         getSupportFragmentManager()
                 .beginTransaction()

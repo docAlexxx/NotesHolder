@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,12 +33,26 @@ public class NotesFragment extends Fragment {
         LinearLayout layoutView = (LinearLayout) view;
         String[] notes = getResources().getStringArray(R.array.notes);
 
-        for(String note: notes){
-            TextView tvCityName = new TextView(getContext());
-            tvCityName.setText(note);
-            tvCityName.setTextSize(30);
-            tvCityName.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
-            layoutView.addView(tvCityName);
+
+        for (int i = 0; i < notes.length; i++) {
+            String note = notes[i];
+            TextView tvNote = new TextView(getContext());
+            tvNote.setText(note);
+            tvNote.setTextSize(30);
+            tvNote.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
+            layoutView.addView(tvNote);
+            final int index = i;
+            tvNote.setOnClickListener(v -> {
+                showDescription(index);
+            });
         }
+    }
+
+    private void showDescription(int index) {
+        descriptionFragment fragment = descriptionFragment.newInstance(index);
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragment_container, fragment);
+        ((FragmentTransaction) transaction).commit();
     }
 }
