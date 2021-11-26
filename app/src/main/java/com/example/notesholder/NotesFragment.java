@@ -48,12 +48,29 @@ public class NotesFragment extends Fragment {
         }
     }
 
-    private void showDescription(int index) {
+    private void showDescription(int position) {
+        if (Utils.isLandscape(getResources())) {
+            showDescriptionLandscape(position);
+        } else {
+            showDescriptionPortrait(position);
+        }
+    }
+
+    private void showDescriptionPortrait(int index) {
         descriptionFragment fragment = descriptionFragment.newInstance(index);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.fragment_container, fragment);
         transaction.addToBackStack("");
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        ((FragmentTransaction) transaction).commit();
+    }
+
+    private void showDescriptionLandscape(int index) {
+        descriptionFragment fragment = descriptionFragment.newInstance(index);
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.description_container, fragment);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ((FragmentTransaction) transaction).commit();
     }
