@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 public class NotesFragment extends Fragment {
 
+    private static final String CURRENT_NOTE = "CurrentNote";
+    private int currentIndex = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,7 +29,15 @@ public class NotesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState != null){
+            currentIndex = savedInstanceState.getInt(CURRENT_NOTE, 0);
+        }
+
         makeList(view);
+
+        if (Utils.isLandscape(getResources())){
+            showDescription(currentIndex);
+        }
     }
 
     private void makeList(View view) {
@@ -43,6 +54,7 @@ public class NotesFragment extends Fragment {
             layoutView.addView(tvNote);
             final int index = i;
             tvNote.setOnClickListener(v -> {
+                currentIndex = index;
                 showDescription(index);
             });
         }
@@ -73,5 +85,11 @@ public class NotesFragment extends Fragment {
         transaction.add(R.id.description_container, fragment);
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ((FragmentTransaction) transaction).commit();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt(CURRENT_NOTE, currentIndex);
+        super.onSaveInstanceState(outState);
     }
 }
