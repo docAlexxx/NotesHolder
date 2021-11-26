@@ -18,7 +18,7 @@ import android.widget.TextView;
  */
 public class descriptionFragment extends Fragment {
 
-    private static final String ARG_INDEX = "index";
+    static final String ARG_INDEX = "index";
     private int index;
 
     public descriptionFragment() {

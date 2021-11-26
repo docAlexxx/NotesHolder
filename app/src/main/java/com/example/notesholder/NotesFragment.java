@@ -1,5 +1,9 @@
 package com.example.notesholder;
 
+import static com.example.notesholder.descriptionFragment.ARG_INDEX;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -69,13 +73,10 @@ public class NotesFragment extends Fragment {
     }
 
     private void showDescriptionPortrait(int index) {
-        descriptionFragment fragment = descriptionFragment.newInstance(index);
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragment_container, fragment);
-        transaction.addToBackStack("");
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ((FragmentTransaction) transaction).commit();
+        Activity activity = requireActivity();
+        Intent intent = new Intent(activity, DescriptionActivity.class);
+        intent.putExtra(ARG_INDEX, index);
+        activity.startActivity(intent);
     }
 
     private void showDescriptionLandscape(int index) {
