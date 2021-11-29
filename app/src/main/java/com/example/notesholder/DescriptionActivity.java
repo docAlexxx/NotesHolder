@@ -18,10 +18,12 @@ public class DescriptionActivity extends AppCompatActivity {
             return;
         }
 
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
+            Notes notes = (Notes) getIntent().getExtras().getParcelable(ARG_INDEX);
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.description_container, descriptionFragment.newInstance(getIntent().getExtras().getInt(ARG_INDEX)))
+                    .replace(R.id.description_container, descriptionFragment.newInstance(notes))
                     .commit();
+        }
     }
 }

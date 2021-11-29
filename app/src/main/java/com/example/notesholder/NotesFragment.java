@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ import android.widget.TextView;
 public class NotesFragment extends Fragment {
 
     private static final String CURRENT_NOTE = "CurrentNote";
-    private int currentIndex = 0;
+    private Notes currentNote = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,13 +35,13 @@ public class NotesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState != null) {
-            currentIndex = savedInstanceState.getInt(CURRENT_NOTE, 0);
+            currentNote = (Notes) savedInstanceState.getParcelable(CURRENT_NOTE);
         }
 
         makeList(view);
 
         if (Utils.isLandscape(getResources())) {
-            showDescription(currentIndex);
+            showDescription(currentNote);
         }
     }
 
@@ -58,29 +59,29 @@ public class NotesFragment extends Fragment {
             layoutView.addView(tvNote);
             final int index = i;
             tvNote.setOnClickListener(v -> {
-                currentIndex = index;
-                showDescription(index);
+                currentNote = new Notes(index, "Note" + (index + 1), "description" + (index + 1) + " and many other different words about something", "2" + (index + 1) + ".11.2021");
+                showDescription(currentNote);
             });
         }
     }
 
-    private void showDescription(int position) {
+    private void showDescription(Notes notes) {
         if (Utils.isLandscape(getResources())) {
-            showDescriptionLandscape(position);
+            showDescriptionLandscape(notes);
         } else {
-            showDescriptionPortrait(position);
+            showDescriptionPortrait(notes);
         }
     }
 
-    private void showDescriptionPortrait(int index) {
+    private void showDescriptionPortrait(Notes notes) {
         Activity activity = requireActivity();
         Intent intent = new Intent(activity, DescriptionActivity.class);
-        intent.putExtra(ARG_INDEX, index);
+        intent.putExtra(ARG_INDEX, notes);
         activity.startActivity(intent);
     }
 
-    private void showDescriptionLandscape(int index) {
-        descriptionFragment fragment = descriptionFragment.newInstance(index);
+    private void showDescriptionLandscape(Notes notes) {
+        descriptionFragment fragment = descriptionFragment.newInstance(notes);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(R.id.description_container, fragment);
@@ -90,7 +91,7 @@ public class NotesFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt(CURRENT_NOTE, currentIndex);
+        outState.putParcelable(CURRENT_NOTE, currentNote);
         super.onSaveInstanceState(outState);
     }
 }

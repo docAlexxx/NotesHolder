@@ -19,7 +19,7 @@ import android.widget.TextView;
 public class descriptionFragment extends Fragment {
 
     static final String ARG_INDEX = "index";
-    private int index;
+    private Notes notes;
 
     public descriptionFragment() {
         // Required empty public constructor
@@ -29,14 +29,14 @@ public class descriptionFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param index number of note.
+     * @param notes number of note.
      * @return A new instance of fragment descriptionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static descriptionFragment newInstance(int index) {
+    public static descriptionFragment newInstance(Notes notes) {
         descriptionFragment fragment = new descriptionFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_INDEX, index);
+        args.putParcelable(ARG_INDEX, notes);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +45,7 @@ public class descriptionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            index = getArguments().getInt(ARG_INDEX);
+            notes = (Notes) getArguments().getParcelable(ARG_INDEX);
         }
     }
 
@@ -60,20 +60,21 @@ public class descriptionFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView tvName = view.findViewById(R.id.text_view_name);
-        TextView tvDescription = view.findViewById(R.id.text_view_description);
-        TextView tvDate = view.findViewById(R.id.text_view_date);
+        if (notes != null) {
+            TextView tvName = view.findViewById(R.id.text_view_name);
+            TextView tvDescription = view.findViewById(R.id.text_view_description);
+            TextView tvDate = view.findViewById(R.id.text_view_date);
 
 
-        Notes[] fullNotes = new Notes[7];
-        for (int i = 0; i < fullNotes.length; i++) {
-            fullNotes[i] = new Notes("Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
+            Notes[] fullNotes = new Notes[7];
+            for (int i = 0; i < fullNotes.length; i++) {
+                fullNotes[i] = new Notes(i, "Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
+            }
+
+            tvName.setText(fullNotes[notes.noteIndex].name);
+            tvDescription.setText(fullNotes[notes.noteIndex].description);
+            tvDate.setText(fullNotes[notes.noteIndex].date);
         }
-
-        tvName.setText(fullNotes[index].name);
-        tvDescription.setText(fullNotes[index].description);
-        tvDate.setText(fullNotes[index].date);
-
 
     }
 }

@@ -3,11 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout-land/activity_main.xml" value="0.12" />
-        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout/activity_description.xml" value="0.11702127659574468" />
-        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout/activity_main.xml" value="0.10099637681159421" />
-        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout/fragment_description.xml" value="0.10099637681159421" />
-        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout/fragment_notes.xml" value="0.1175925925925926" />
+        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout-land/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout/activity_description.xml" value="0.1160081053698075" />
+        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout/activity_main.xml" value="0.1160081053698075" />
+        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout/fragment_description.xml" value="0.1160081053698075" />
+        <entry key="..\:/Users/Sasha/AndroidStudioProjects/NotesHolder/app/src/main/res/layout/fragment_notes.xml" value="0.14629629629629629" />
       </map>
     </option>
   </component>
