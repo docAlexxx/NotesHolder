@@ -33,13 +33,13 @@ public class NotesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             currentIndex = savedInstanceState.getInt(CURRENT_NOTE, 0);
         }
 
         makeList(view);
 
-        if (Utils.isLandscape(getResources())){
+        if (Utils.isLandscape(getResources())) {
             showDescription(currentIndex);
         }
     }

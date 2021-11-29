@@ -11,15 +11,15 @@ public class Notes {
     public String date;
 
     public Notes(String name, String description, String date) {
-        this.name=name;
-        this.description=description;
-        this.date=date;
+        this.name = name;
+        this.description = description;
+        this.date = date;
     }
 
     @NonNull
     @Override
     public String toString() {
-      //  SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
+        //  SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
         return name + "\n\n" + description + "\n\n" + date;
     }
 }

@@ -66,13 +66,9 @@ public class descriptionFragment extends Fragment {
 
 
         Notes[] fullNotes = new Notes[7];
-        fullNotes[0] = new Notes("Note1", "description1 and many other different words about something", "21.11.2021");
-        fullNotes[1] = new Notes("Note2", "description2 and many other different words about something", "22.11.2021");
-        fullNotes[2] = new Notes("Note3", "description3 and many other different words about something", "23.11.2021");
-        fullNotes[3] = new Notes("Note4", "description4 and many other different words about something", "24.11.2021");
-        fullNotes[4] = new Notes("Note5", "description5 and many other different words about something", "25.11.2021");
-        fullNotes[5] = new Notes("Note6", "description6 and many other different words about something", "26.11.2021");
-        fullNotes[6] = new Notes("Note7", "description7 and many other different words about something", "27.11.2021");
+        for (int i = 0; i < fullNotes.length; i++) {
+            fullNotes[i] = new Notes("Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
+        }
 
         tvName.setText(fullNotes[index].name);
         tvDescription.setText(fullNotes[index].description);
