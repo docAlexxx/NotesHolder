@@ -14,6 +14,7 @@ public class Notes implements Parcelable {
     public String description;
     public String date;
     public int noteIndex;
+    static Notes[] notes =new Notes[7];
 
     public Notes(int noteIndex, String name, String description, String date) {
         this.noteIndex = noteIndex;
