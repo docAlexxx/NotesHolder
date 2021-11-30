@@ -21,8 +21,6 @@ import android.widget.TextView;
 
 public class NotesFragment extends Fragment {
 
-    private static final String CURRENT_NOTE = "CurrentNote";
-    private Notes currentNote = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,15 +32,7 @@ public class NotesFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (savedInstanceState != null) {
-            currentNote = (Notes) savedInstanceState.getParcelable(CURRENT_NOTE);
-        }
-
         makeList(view);
-
-        if (Utils.isLandscape(getResources())) {
-            showDescription(currentNote);
-        }
     }
 
     private void makeList(View view) {
@@ -59,39 +49,18 @@ public class NotesFragment extends Fragment {
             layoutView.addView(tvNote);
             final int index = i;
             tvNote.setOnClickListener(v -> {
-                currentNote = new Notes(index, "Note" + (index + 1), "description" + (index + 1) + " and many other different words about something", "2" + (index + 1) + ".11.2021");
+                Notes currentNote = new Notes(index, "Note" + (index + 1), "description" + (index + 1) + " and many other different words about something", "2" + (index + 1) + ".11.2021");
                 showDescription(currentNote);
             });
         }
     }
 
+
     private void showDescription(Notes notes) {
-        if (Utils.isLandscape(getResources())) {
-            showDescriptionLandscape(notes);
-        } else {
-            showDescriptionPortrait(notes);
-        }
-    }
-
-    private void showDescriptionPortrait(Notes notes) {
-        Activity activity = requireActivity();
-        Intent intent = new Intent(activity, DescriptionActivity.class);
-        intent.putExtra(ARG_INDEX, notes);
-        activity.startActivity(intent);
-    }
-
-    private void showDescriptionLandscape(Notes notes) {
-        descriptionFragment fragment = descriptionFragment.newInstance(notes);
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.description_container, fragment);
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ((FragmentTransaction) transaction).commit();
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putParcelable(CURRENT_NOTE, currentNote);
-        super.onSaveInstanceState(outState);
+        transaction.add(R.id.fragment_container, descriptionFragment.newInstance(notes))
+                .addToBackStack("")
+                .commit();
     }
 }
