@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -74,6 +76,11 @@ public class descriptionFragment extends Fragment {
             tvName.setText(fullNotes[notes.noteIndex].name);
             tvDescription.setText(fullNotes[notes.noteIndex].description);
             tvDate.setText(fullNotes[notes.noteIndex].date);
+
+            ImageView buttonBack = view.findViewById(R.id.back_button);
+            buttonBack.setOnClickListener(v -> {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            });
         }
 
     }
