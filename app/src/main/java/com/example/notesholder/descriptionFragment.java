@@ -65,19 +65,19 @@ public class descriptionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (notes != null) {
-            TextView tvName = view.findViewById(R.id.text_view_name);
+            TextView tvName = view.findViewById(R.id.text_view_name1);
             TextView tvDescription = view.findViewById(R.id.text_view_description);
             TextView tvDate = view.findViewById(R.id.text_view_date);
 
 
-            Notes[] fullNotes = new Notes[7];
-            for (int i = 0; i < fullNotes.length; i++) {
-                fullNotes[i] = new Notes(i, "Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
-            }
+         //   Notes[] fullNotes = new Notes[7];
+         //   for (int i = 0; i < fullNotes.length; i++) {
+         //       fullNotes[i] = new Notes(i, "Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
+         //   }
 
-            tvName.setText(fullNotes[notes.noteIndex].name);
-            tvDescription.setText(fullNotes[notes.noteIndex].description);
-            tvDate.setText(fullNotes[notes.noteIndex].date);
+            tvName.setText(notes.name);
+            tvDescription.setText(notes.description);
+            tvDate.setText(notes.date);
 
             ImageView buttonBack = view.findViewById(R.id.back_button1);
             buttonBack.setOnClickListener(v -> {
@@ -86,7 +86,7 @@ public class descriptionFragment extends Fragment {
             });
 
             ImageView buttonEdit = view.findViewById(R.id.edit_button);
-            buttonBack.setOnClickListener(v -> {
+            buttonEdit.setOnClickListener(v -> {
                 showEditScreen(notes);
             });
         }
@@ -94,7 +94,7 @@ public class descriptionFragment extends Fragment {
     private void showEditScreen(Notes notes) {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragment_container, EditFragment.newInstance(notes))
+        transaction.replace(R.id.fragment_container, EditFragment.newInstance(notes))
                 .addToBackStack("")
                 .commit();
     }

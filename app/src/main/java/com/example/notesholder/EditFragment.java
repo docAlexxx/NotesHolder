@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ import android.widget.TextView;
  */
 public class EditFragment extends Fragment {
 
-    static final String ARG_INDEX = "index";
+    static final String ARG_INDEX_2 = "index";
     private Notes notes;
 
     public EditFragment() {
@@ -37,18 +38,18 @@ public class EditFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static EditFragment newInstance(Notes notes) {
-        EditFragment fragment = new EditFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_INDEX, notes);
-        fragment.setArguments(args);
-        return fragment;
+        EditFragment fragment2 = new EditFragment();
+        Bundle args2 = new Bundle();
+        args2.putParcelable(ARG_INDEX_2, notes);
+        fragment2.setArguments(args2);
+        return fragment2;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            notes = (Notes) getArguments().getParcelable(ARG_INDEX);
+            notes = (Notes) getArguments().getParcelable(ARG_INDEX_2);
         }
     }
 
@@ -64,32 +65,32 @@ public class EditFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (notes != null) {
-            TextView editScreen = view.findViewById(R.id.edit_screen);
+            TextView tvName = view.findViewById(R.id.text_view_name2);
+            EditText editScreen = view.findViewById(R.id.edit_screen);
 
-            Notes[] fullNotes = new Notes[7];
-            for (int i = 0; i < fullNotes.length; i++) {
-                fullNotes[i] = new Notes(i, "Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
-            }
-
-            editScreen.setText(fullNotes[notes.noteIndex].description);
+            tvName.setText(notes.name);
+            editScreen.setText(notes.description);
 
             ImageView buttonBack = view.findViewById(R.id.back_button2);
             buttonBack.setOnClickListener(v -> {
-                showDescription(notes);
+                requireActivity().getSupportFragmentManager().popBackStack();
+//                showDescription(notes);
             });
 
-            ImageView buttonEdit = view.findViewById(R.id.edit_button);
-            buttonBack.setOnClickListener(v -> {
+            ImageView buttonSafe = view.findViewById(R.id.save_button);
+            buttonSafe.setOnClickListener(v -> {
                //изменить содержание заметки
-               showDescription(notes);
+                notes.description = editScreen.getText().toString();
+                requireActivity().getSupportFragmentManager().popBackStack();
+                //             showDescription(notes);
             });
         }
     }
-    private void showDescription(Notes notes) {
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragment_container, descriptionFragment.newInstance(notes))
-                //.addToBackStack("")
-                .commit();
-    }
+  //  private void showDescription(Notes notes) {
+  //      FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+  //      FragmentTransaction transaction = fragmentManager.beginTransaction();
+  //      transaction.replace(R.id.fragment_container, descriptionFragment.newInstance(notes))
+  //              .addToBackStack("")
+  //              .commit();
+  //  }
 }
