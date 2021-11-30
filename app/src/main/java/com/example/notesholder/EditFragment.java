@@ -11,21 +11,20 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link descriptionFragment#newInstance} factory method to
+ * Use the {@link EditFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class descriptionFragment extends Fragment {
+public class EditFragment extends Fragment {
 
     static final String ARG_INDEX = "index";
     private Notes notes;
 
-    public descriptionFragment() {
+    public EditFragment() {
         // Required empty public constructor
     }
 
@@ -37,8 +36,8 @@ public class descriptionFragment extends Fragment {
      * @return A new instance of fragment descriptionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static descriptionFragment newInstance(Notes notes) {
-        descriptionFragment fragment = new descriptionFragment();
+    public static EditFragment newInstance(Notes notes) {
+        EditFragment fragment = new EditFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_INDEX, notes);
         fragment.setArguments(args);
@@ -57,7 +56,7 @@ public class descriptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_description, container, false);
+        return inflater.inflate(R.layout.fragment_edit, container, false);
     }
 
     @Override
@@ -65,38 +64,32 @@ public class descriptionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (notes != null) {
-            TextView tvName = view.findViewById(R.id.text_view_name);
-            TextView tvDescription = view.findViewById(R.id.text_view_description);
-            TextView tvDate = view.findViewById(R.id.text_view_date);
-
+            TextView editScreen = view.findViewById(R.id.edit_screen);
 
             Notes[] fullNotes = new Notes[7];
             for (int i = 0; i < fullNotes.length; i++) {
                 fullNotes[i] = new Notes(i, "Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
             }
 
-            tvName.setText(fullNotes[notes.noteIndex].name);
-            tvDescription.setText(fullNotes[notes.noteIndex].description);
-            tvDate.setText(fullNotes[notes.noteIndex].date);
+            editScreen.setText(fullNotes[notes.noteIndex].description);
 
-            ImageView buttonBack = view.findViewById(R.id.back_button1);
+            ImageView buttonBack = view.findViewById(R.id.back_button2);
             buttonBack.setOnClickListener(v -> {
-                requireActivity().getSupportFragmentManager().popBackStack();
-
+                showDescription(notes);
             });
 
             ImageView buttonEdit = view.findViewById(R.id.edit_button);
             buttonBack.setOnClickListener(v -> {
-                showEditScreen(notes);
+               //изменить содержание заметки
+               showDescription(notes);
             });
         }
     }
-    private void showEditScreen(Notes notes) {
+    private void showDescription(Notes notes) {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragment_container, EditFragment.newInstance(notes))
-                .addToBackStack("")
+        transaction.add(R.id.fragment_container, descriptionFragment.newInstance(notes))
+                //.addToBackStack("")
                 .commit();
     }
-
 }
