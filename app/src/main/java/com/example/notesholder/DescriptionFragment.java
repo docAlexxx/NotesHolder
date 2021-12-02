@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,21 +13,20 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link descriptionFragment#newInstance} factory method to
+ * Use the {@link DescriptionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class descriptionFragment extends Fragment {
+public class DescriptionFragment extends Fragment {
 
     static final String ARG_INDEX = "index";
     private Notes notes;
 
-    public descriptionFragment() {
+    public DescriptionFragment() {
         // Required empty public constructor
     }
 
@@ -37,8 +38,8 @@ public class descriptionFragment extends Fragment {
      * @return A new instance of fragment descriptionFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static descriptionFragment newInstance(Notes notes) {
-        descriptionFragment fragment = new descriptionFragment();
+    public static DescriptionFragment newInstance(Notes notes) {
+        DescriptionFragment fragment = new DescriptionFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_INDEX, notes);
         fragment.setArguments(args);
@@ -56,7 +57,12 @@ public class descriptionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        setHasOptionsMenu(true);
+        ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setSubtitle("Description");
+        }
+
         return inflater.inflate(R.layout.fragment_description, container, false);
     }
 
