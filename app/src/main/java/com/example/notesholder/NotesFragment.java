@@ -1,18 +1,15 @@
 package com.example.notesholder;
 
-import static com.example.notesholder.descriptionFragment.ARG_INDEX;
-
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +22,12 @@ public class NotesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setSubtitle("Notes List");
+        }
+
         View root = inflater.inflate(R.layout.fragment_notes, container, false);
         return root;
     }
@@ -60,7 +63,7 @@ public class NotesFragment extends Fragment {
     private void showDescription(Notes notes) {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragment_container, descriptionFragment.newInstance(notes))
+        transaction.add(R.id.fragment_container, DescriptionFragment.newInstance(notes))
                 .addToBackStack("")
                 .commit();
     }
