@@ -6,4 +6,10 @@
     <string name="settngs_text">Supposed that there are many settings (like \'theme choose\', \'quantity of notes\' etc.) in this fragment</string>
     <string name="navigation_drawer_open">drawer open</string>
     <string name="navigation_drawer_close">drawer close</string>
+    <string name="notesholder">NotesHolder</string>
+    <string name="made_by">Made by Bedin A.A.</string>
+    <string name="instructions">Instructions</string>
+    <string name="for_editing">is for editing selected note</string>
+    <string name="for_safe">is for safe changes in the note</string>
+    <string name="notesholder">NotesHolder</string>
 </resources>

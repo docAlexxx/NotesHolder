@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="30sp"
+        android:textSize="@dimen/text_size"
         android:text="@string/holder_name"
 />
 </LinearLayout>
