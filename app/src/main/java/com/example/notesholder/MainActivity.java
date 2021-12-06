@@ -109,7 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        Toast.makeText(this, "Exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "NotesHolder has closed", Toast.LENGTH_LONG).show();
         super.onDestroy();
     }
+
 }
