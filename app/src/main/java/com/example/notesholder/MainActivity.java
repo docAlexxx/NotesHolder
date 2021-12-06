@@ -2,17 +2,20 @@ package com.example.notesholder;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     drawer.closeDrawers();
                     return true;
                 case R.id.exit_point:
-                    finish();
+                    dialogBeforeExit();
                     return true;
             }
             return false;
@@ -85,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 openSettingsFragment();
                 return true;
             case R.id.exit_point:
-                finish();
+                dialogBeforeExit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -111,6 +114,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         Toast.makeText(this, "NotesHolder has closed", Toast.LENGTH_LONG).show();
         super.onDestroy();
+    }
+
+    private void dialogBeforeExit() {
+        new AlertDialog.Builder(this)
+                .setTitle("Exit")
+                .setMessage("Are you sure you want to exit?")
+                .setIcon(R.drawable.exit)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", (dialogInterface, i) -> {
+                    Snackbar.make(findViewById(R.id.container), "You still stay in the App", Snackbar.LENGTH_LONG).show();
+                })
+                .show();
     }
 
 }

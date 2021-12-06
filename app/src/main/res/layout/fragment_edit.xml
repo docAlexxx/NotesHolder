@@ -20,7 +20,7 @@
             android:layout_height="@dimen/button_height"
             android:layout_weight="1"
             android:backgroundTint="@color/teal_700"
-            app:srcCompat="@android:drawable/ic_media_rew" />
+                app:srcCompat="@android:drawable/ic_media_rew" />
 
         <ImageView
             android:id="@+id/save_button"
