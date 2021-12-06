@@ -1,10 +1,13 @@
 package com.example.notesholder;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +19,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,23 +86,31 @@ public class EditFragment extends Fragment {
             ImageView buttonBack = view.findViewById(R.id.back_button2);
             buttonBack.setOnClickListener(v -> {
                 requireActivity().getSupportFragmentManager().popBackStack();
-//                showDescription(notes);
             });
 
             ImageView buttonSafe = view.findViewById(R.id.save_button);
             buttonSafe.setOnClickListener(v -> {
-               //изменить содержание заметки
-                notes.description = editScreen.getText().toString();
+                dialogOnSafe();
+               // notes.description = editScreen.getText().toString();
                 requireActivity().getSupportFragmentManager().popBackStack();
-                //             showDescription(notes);
             });
         }
     }
-  //  private void showDescription(Notes notes) {
-  //      FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-  //      FragmentTransaction transaction = fragmentManager.beginTransaction();
-  //      transaction.replace(R.id.fragment_container, descriptionFragment.newInstance(notes))
-  //              .addToBackStack("")
-  //              .commit();
-  //  }
+
+    private void dialogOnSafe() {
+        new AlertDialog.Builder(requireActivity())
+                .setTitle("The note is changed")
+                .setMessage("Do you want to change note's name or date?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+
 }
