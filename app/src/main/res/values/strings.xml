@@ -11,5 +11,8 @@
     <string name="instructions">Instructions</string>
     <string name="for_editing">is for editing selected note</string>
     <string name="for_safe">is for safe changes in the note</string>
-    <string name="notesholder">NotesHolder</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="submit_button">Submit</string>
+    <string name="new_name">New name</string>
+    <string name="new_date">New date</string>
 </resources>

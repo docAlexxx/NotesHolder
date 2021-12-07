@@ -2,28 +2,33 @@ package com.example.notesholder;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements ChangeResult{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        for (int i = 0; i < Notes.notes.length; i++) {
-            Notes.notes[i] = new Notes(i, "Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
-        };
-
+        if (Notes.currentIndex==-1) {
+            for (int i = 0; i < Notes.notes.length; i++) {
+                Notes.notes[i] = new Notes(i, "Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
+            }
+            ;
+        }
         if (savedInstanceState == null) {
             NotesFragment notesFragment = new NotesFragment();
             getSupportFragmentManager()
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     drawer.closeDrawers();
                     return true;
                 case R.id.exit_point:
-                    finish();
+                    dialogBeforeExit();
                     return true;
             }
             return false;
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 openSettingsFragment();
                 return true;
             case R.id.exit_point:
-                finish();
+                dialogBeforeExit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -106,4 +111,35 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    @Override
+    protected void onDestroy() {
+        Toast.makeText(this, "NotesHolder has closed", Toast.LENGTH_LONG).show();
+        super.onDestroy();
+    }
+
+    private void dialogBeforeExit() {
+        new AlertDialog.Builder(this)
+                .setTitle("Exit")
+                .setMessage("Are you sure you want to exit?")
+                .setCancelable(false)
+                .setIcon(R.drawable.exit)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", (dialogInterface, i) -> {
+                    Snackbar.make(findViewById(R.id.container), "You still stay in the App", Snackbar.LENGTH_LONG).show();
+                })
+                .show();
+    }
+
+
+    @Override
+    public void onChangeResult(String name, String date) {
+        Notes.notes[Notes.currentIndex].name=name;
+        Notes.notes[Notes.currentIndex].date=date;
+
+    }
 }
