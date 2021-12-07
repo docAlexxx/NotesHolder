@@ -28,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
  * Use the {@link EditFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditFragment extends Fragment {
+public class EditFragment extends Fragment implements ChangeResult{
 
     static final String ARG_INDEX_2 = "index";
     private Notes notes;
@@ -91,8 +91,8 @@ public class EditFragment extends Fragment {
             ImageView buttonSafe = view.findViewById(R.id.save_button);
             buttonSafe.setOnClickListener(v -> {
                 dialogOnSafe();
-               // notes.description = editScreen.getText().toString();
-                requireActivity().getSupportFragmentManager().popBackStack();
+                notes.description = editScreen.getText().toString();
+            //    requireActivity().getSupportFragmentManager().popBackStack();
             });
         }
     }
@@ -105,12 +105,28 @@ public class EditFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        showDialogFragmentCustomView();
+                        requireActivity().getSupportFragmentManager().popBackStack();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                    }
+                })
                 .show();
     }
 
+
+    public void showDialogFragmentCustomView() {
+        new DialogChangeDataFragment().show(requireActivity().getSupportFragmentManager(), "DialogFragmentTAG");
+    }
+
+    @Override
+    public void onChangeResult(String name, String date) {
+
+
+    }
 
 }

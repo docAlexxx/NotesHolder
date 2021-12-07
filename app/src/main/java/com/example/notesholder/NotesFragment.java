@@ -54,6 +54,7 @@ public class NotesFragment extends Fragment {
             tvNote.setOnClickListener(v -> {
               //  Notes currentNote = new Notes(index, note, "description" + (index + 1) + " and many other different words about something", "2" + (index + 1) + ".11.2021");
                 Notes currentNote= Notes.notes[index];
+                Notes.currentIndex=index;
                 showDescription(currentNote);
             });
         }
