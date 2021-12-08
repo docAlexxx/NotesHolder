@@ -24,9 +24,8 @@ public class NotesFragment extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setSubtitle("Notes List");
-        }
+
+        Utils.setSubtitleName(actionBar,"Notes List");
 
         View root = inflater.inflate(R.layout.fragment_notes, container, false);
         return root;

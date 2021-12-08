@@ -66,9 +66,8 @@ public class EditFragment extends Fragment implements ChangeResult{
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setSubtitle("Edit");
-        }
+        Utils.setSubtitleName(actionBar,"Edit");
+
         return inflater.inflate(R.layout.fragment_edit, container, false);
     }
 

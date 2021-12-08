@@ -10,5 +10,9 @@ public class Utils {
         return res.getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
     }
-
+    public static void setSubtitleName(ActionBar actionBar, String name) {
+        if (actionBar != null) {
+            actionBar.setSubtitle(name);
+        }
+    }
 }

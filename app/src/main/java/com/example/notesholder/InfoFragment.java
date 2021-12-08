@@ -16,12 +16,9 @@ public class InfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-            setHasOptionsMenu(true);
-            ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
-            if (actionBar != null){
-                actionBar.setSubtitle("Info");
-            }
-
+        setHasOptionsMenu(true);
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Utils.setSubtitleName(actionBar, "Info");
 
         return inflater.inflate(R.layout.fragment_info, container, false);
     }
