@@ -58,10 +58,8 @@ public class DescriptionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setSubtitle("Description");
-        }
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Utils.setSubtitleName(actionBar, "Description");
 
         return inflater.inflate(R.layout.fragment_description, container, false);
     }
@@ -75,12 +73,6 @@ public class DescriptionFragment extends Fragment {
             TextView tvDescription = view.findViewById(R.id.text_view_description);
             TextView tvDate = view.findViewById(R.id.text_view_date);
 
-
-         //   Notes[] fullNotes = new Notes[7];
-         //   for (int i = 0; i < fullNotes.length; i++) {
-         //       fullNotes[i] = new Notes(i, "Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
-         //   }
-
             tvName.setText(notes.name);
             tvDescription.setText(notes.description);
             tvDate.setText(notes.date);
@@ -88,7 +80,6 @@ public class DescriptionFragment extends Fragment {
             ImageView buttonBack = view.findViewById(R.id.back_button1);
             buttonBack.setOnClickListener(v -> {
                 requireActivity().getSupportFragmentManager().popBackStack();
-
             });
 
             ImageView buttonEdit = view.findViewById(R.id.edit_button);
@@ -97,6 +88,7 @@ public class DescriptionFragment extends Fragment {
             });
         }
     }
+
     private void showEditScreen(Notes notes) {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

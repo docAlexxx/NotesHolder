@@ -17,9 +17,8 @@ public class SettingsFragment extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setSubtitle("Settings");
-        }
+
+        Utils.setSubtitleName(actionBar,"Settings");
 
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }

@@ -10,8 +10,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,16 +17,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.snackbar.Snackbar;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link EditFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditFragment extends Fragment implements ChangeResult{
+public class EditFragment extends Fragment implements ChangeResult {
 
     static final String ARG_INDEX_2 = "index";
     private Notes notes;
@@ -65,10 +60,9 @@ public class EditFragment extends Fragment implements ChangeResult{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
-        if (actionBar != null){
-            actionBar.setSubtitle("Edit");
-        }
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Utils.setSubtitleName(actionBar, "Edit");
+
         return inflater.inflate(R.layout.fragment_edit, container, false);
     }
 
@@ -92,7 +86,6 @@ public class EditFragment extends Fragment implements ChangeResult{
             buttonSafe.setOnClickListener(v -> {
                 dialogOnSafe();
                 notes.description = editScreen.getText().toString();
-            //    requireActivity().getSupportFragmentManager().popBackStack();
             });
         }
     }
@@ -117,7 +110,6 @@ public class EditFragment extends Fragment implements ChangeResult{
                 })
                 .show();
     }
-
 
     public void showDialogFragmentCustomView() {
         new DialogChangeDataFragment().show(requireActivity().getSupportFragmentManager(), "DialogFragmentTAG");

@@ -2,19 +2,14 @@ package com.example.notesholder;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.NonNull;
-
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Notes implements Parcelable {
     public String name;
     public String description;
     public String date;
     public int noteIndex;
-    static Notes[] notes =new Notes[7];
+    static Notes[] notes =new Notes[10];
     static int currentIndex=-1;
 
     public Notes(int noteIndex, String name, String description, String date) {
