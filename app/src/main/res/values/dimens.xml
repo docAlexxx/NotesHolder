@@ -6,5 +6,5 @@
     <dimen name="margin_top_description">50dp</dimen>
     <dimen name="margin_top_info">20dp</dimen>
     <dimen name="margin_start">30dp</dimen>
-    <dimen name="list_text_size">40sp</dimen>
+    <dimen name="list_text_size">50sp</dimen>
 </resources>

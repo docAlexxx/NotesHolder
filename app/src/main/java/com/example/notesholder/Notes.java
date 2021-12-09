@@ -2,12 +2,7 @@ package com.example.notesholder;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import androidx.annotation.NonNull;
-
-import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class Notes implements Parcelable {
     public String name;
