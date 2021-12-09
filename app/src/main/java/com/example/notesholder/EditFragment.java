@@ -28,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
  * Use the {@link EditFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EditFragment extends Fragment implements ChangeResult{
+public class EditFragment extends Fragment implements ChangeResult {
 
     static final String ARG_INDEX_2 = "index";
     private Notes notes;
@@ -65,8 +65,8 @@ public class EditFragment extends Fragment implements ChangeResult{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        ActionBar actionBar = ((AppCompatActivity)requireActivity()).getSupportActionBar();
-        Utils.setSubtitleName(actionBar,"Edit");
+        ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        Utils.setSubtitleName(actionBar, "Edit");
 
         return inflater.inflate(R.layout.fragment_edit, container, false);
     }
@@ -91,7 +91,7 @@ public class EditFragment extends Fragment implements ChangeResult{
             buttonSafe.setOnClickListener(v -> {
                 dialogOnSafe();
                 notes.description = editScreen.getText().toString();
-            //    requireActivity().getSupportFragmentManager().popBackStack();
+                //    requireActivity().getSupportFragmentManager().popBackStack();
             });
         }
     }
@@ -116,7 +116,6 @@ public class EditFragment extends Fragment implements ChangeResult{
                 })
                 .show();
     }
-
 
     public void showDialogFragmentCustomView() {
         new DialogChangeDataFragment().show(requireActivity().getSupportFragmentManager(), "DialogFragmentTAG");

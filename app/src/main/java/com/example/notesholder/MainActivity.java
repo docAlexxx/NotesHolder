@@ -19,27 +19,21 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity  implements ChangeResult{
+public class MainActivity extends AppCompatActivity implements ChangeResult {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (Notes.currentIndex==-1) {
+        if (Notes.currentIndex == -1) {
             for (int i = 0; i < Notes.notes.length; i++) {
-                Notes.notes[i] = new Notes(i, "Note" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
+                Notes.notes[i] = new Notes(i, "Name" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
             }
             ;
         }
-        addFragment(new NotesFragment());
-     //   if (savedInstanceState == null) {
-     //       NotesFragment notesFragment = new NotesFragment();
-     //       getSupportFragmentManager()
-     //               .beginTransaction()
-     //               .replace(R.id.fragment_container, notesFragment)
-     //               .commit();
-     //  }
-
+        if (savedInstanceState == null) {
+            addFragment(new NotesFragment());
+        }
         setupToolbar();
     }
 
@@ -149,8 +143,8 @@ public class MainActivity extends AppCompatActivity  implements ChangeResult{
 
     @Override
     public void onChangeResult(String name, String date) {
-        Notes.notes[Notes.currentIndex].name=name;
-        Notes.notes[Notes.currentIndex].date=date;
+        Notes.notes[Notes.currentIndex].name = name;
+        Notes.notes[Notes.currentIndex].date = date;
 
     }
 }
