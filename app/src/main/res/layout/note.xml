@@ -23,7 +23,6 @@
             android:textSize="@dimen/text_size" />
 
         <TextView
-            android:id="@+id/tv_name"
             android:layout_width="0sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
