@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -29,14 +31,23 @@ public class MainActivity extends AppCompatActivity  implements ChangeResult{
             }
             ;
         }
-        if (savedInstanceState == null) {
-            NotesFragment notesFragment = new NotesFragment();
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, notesFragment)
-                    .commit();
-        }
+        addFragment(new NotesFragment());
+     //   if (savedInstanceState == null) {
+     //       NotesFragment notesFragment = new NotesFragment();
+     //       getSupportFragmentManager()
+     //               .beginTransaction()
+     //               .replace(R.id.fragment_container, notesFragment)
+     //               .commit();
+     //  }
+
         setupToolbar();
+    }
+
+    private void addFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.commit();
     }
 
     private void setupToolbar() {
