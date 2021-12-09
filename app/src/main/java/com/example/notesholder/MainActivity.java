@@ -140,11 +140,9 @@ public class MainActivity extends AppCompatActivity implements ChangeResult {
                 .show();
     }
 
-
     @Override
     public void onChangeResult(String name, String date) {
         Notes.notes[Notes.currentIndex].name = name;
         Notes.notes[Notes.currentIndex].date = date;
-
     }
 }

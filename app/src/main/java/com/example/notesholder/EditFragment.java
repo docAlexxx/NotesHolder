@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,6 @@ public class EditFragment extends Fragment implements ChangeResult {
             buttonSafe.setOnClickListener(v -> {
                 dialogOnSafe();
                 notes.description = editScreen.getText().toString();
-                //    requireActivity().getSupportFragmentManager().popBackStack();
             });
         }
     }

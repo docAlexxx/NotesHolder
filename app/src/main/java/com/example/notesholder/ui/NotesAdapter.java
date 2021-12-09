@@ -6,16 +6,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notesholder.Notes;
 import com.example.notesholder.R;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    private String[] dataSource;
+    private Notes[] dataSource;
     private OnItemClickListener itemClickListener;
 
-    public NotesAdapter(String[] dataSource){
+    public NotesAdapter(Notes[] dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -28,7 +30,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
-        holder.getTextView().setText(dataSource[position]);
+       holder.bind(dataSource[position]);
     }
 
     @Override
@@ -38,25 +40,30 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textView;
+        public TextView name;
+        public TextView date;
+        public CardView card;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = (TextView) itemView;
+            name = itemView.findViewById(R.id.tv_name);
+            date = itemView.findViewById(R.id.tv_date);
+            card = itemView.findViewById(R.id.note_card);
 
-            textView.setOnClickListener(new View.OnClickListener() {
+            card.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (itemClickListener != null){
+                    if (itemClickListener != null) {
                         itemClickListener.onItemClick(view, getAdapterPosition());
                     }
                 }
             });
         }
+        public void bind(Notes cardData){
+            name.setText(cardData.name);
+            date.setText(cardData.date);
+         }
 
-        public TextView getTextView(){
-            return textView;
-        }
     }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
@@ -66,5 +73,4 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
     }
-
 }

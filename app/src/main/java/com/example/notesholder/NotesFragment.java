@@ -28,12 +28,12 @@ public class NotesFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_notes, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.recycler_notes_lines);
-        String[] data = getResources().getStringArray(R.array.notes);
+        Notes[] data = Notes.notes;
         initRecyclerView(recyclerView, data);
         return root;
     }
 
-    private void initRecyclerView(RecyclerView recyclerView, String[] data) {
+    private void initRecyclerView(RecyclerView recyclerView, Notes[] data) {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -45,7 +45,7 @@ public class NotesFragment extends Fragment {
 
             @Override
             public void onItemClick(View view, int position) {
-                String note = data[position];
+                Notes note = data[position];
                 Notes.currentIndex = position;
                 Notes currentNote = Notes.notes[position];
                 showDescription(currentNote);
@@ -61,7 +61,7 @@ public class NotesFragment extends Fragment {
     private void showDescription(Notes notes) {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fragment_container, DescriptionFragment.newInstance(notes))
+        transaction.replace(R.id.fragment_container, DescriptionFragment.newInstance(notes))
                 .addToBackStack("")
                 .commit();
     }
