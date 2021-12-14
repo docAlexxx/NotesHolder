@@ -29,7 +29,7 @@ public class Notes implements Parcelable {
         this.noteIndex = noteIndex;
         this.name = "Note " + (noteIndex+1);
         this.description = "description" + (noteIndex + 1) + " and many other different words about something";
-        this.date = "2" + (noteIndex + 1) + ".11.2021";
+        this.date =  (noteIndex + 1) + ".11.2021";
     }
 
 

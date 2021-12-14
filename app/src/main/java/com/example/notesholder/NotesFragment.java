@@ -47,7 +47,7 @@ public class NotesFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new NotesAdapter(data,this);
+        adapter = new NotesAdapter(data, this);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new NotesAdapter.OnItemClickListener() {
@@ -82,11 +82,14 @@ public class NotesFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.add_point:
-                data.add(new Notes(data.size()));
-                adapter.notifyItemInserted(data.size() - 1);
-                recyclerView.scrollToPosition(data.size() - 1);
+                int size = data.size();
+                data.add(new Notes(size, "Note " + (size + 1), "", (size + 1) + ".11.2021"));
+                adapter.notifyItemInserted(size);
+                recyclerView.scrollToPosition(size);
+                Notes.currentIndex=size;
+                showEditScreen(data.get(size));
                 return true;
             case R.id.clear_point:
                 data.clear();
@@ -105,13 +108,25 @@ public class NotesFragment extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        int position = adapter.getMenuPosition();
+        switch (item.getItemId()) {
             case R.id.delete_point:
+                data.remove(position);
+                adapter.notifyItemRemoved(position);
                 return true;
             case R.id.change_point:
+                showEditScreen(data.get(position));
                 return true;
         }
         return super.onContextItemSelected(item);
+    }
+
+    public void showEditScreen(Notes notes) {
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.fragment_container, EditFragment.newInstance(notes))
+                .addToBackStack("")
+                .commit();
     }
 
 
