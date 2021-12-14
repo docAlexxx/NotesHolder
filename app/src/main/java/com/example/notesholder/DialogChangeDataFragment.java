@@ -19,8 +19,8 @@ public class DialogChangeDataFragment extends DialogFragment {
         ChangeResult dialogResult = (ChangeResult) requireActivity();
         EditText editName = customView.findViewById(R.id.edit_text_name);
         EditText editDate = customView.findViewById(R.id.edit_text_date);
-        editName.setText((CharSequence) Notes.notes[Notes.currentIndex].name);
-        editDate.setText((CharSequence) Notes.notes[Notes.currentIndex].date);
+        editName.setText((CharSequence) Notes.notes.get(Notes.currentIndex).name);
+        editDate.setText((CharSequence) Notes.notes.get(Notes.currentIndex).date);
 
         customView.findViewById(R.id.button_submit).setOnClickListener(view -> {
             String name = editName.getText().toString();

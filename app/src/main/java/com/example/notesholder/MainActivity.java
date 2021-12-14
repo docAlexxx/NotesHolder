@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,15 +22,17 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements ChangeResult {
 
+    private Resources resource;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (Notes.currentIndex == -1) {
-            for (int i = 0; i < Notes.notes.length; i++) {
-                Notes.notes[i] = new Notes(i, "Name" + (i + 1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021");
+            int length = Notes.startLength;
+            for (int i=0; i < length; i++){
+                Notes.notes.add( new Notes(i,"Note " + (i+1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021"));
             }
-            ;
         }
         if (savedInstanceState == null) {
             addFragment(new NotesFragment());
@@ -142,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements ChangeResult {
 
     @Override
     public void onChangeResult(String name, String date) {
-        Notes.notes[Notes.currentIndex].name = name;
-        Notes.notes[Notes.currentIndex].date = date;
+        Notes.notes.get(Notes.currentIndex).name=name;
+        Notes.notes.get(Notes.currentIndex).date = date;
     }
 }

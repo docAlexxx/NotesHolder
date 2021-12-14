@@ -12,12 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.notesholder.Notes;
 import com.example.notesholder.R;
 
+import java.util.List;
+
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    private Notes[] dataSource;
+    List<Notes> dataSource;
     private OnItemClickListener itemClickListener;
 
-    public NotesAdapter(Notes[] dataSource) {
+    public NotesAdapter(List<Notes> dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -30,12 +32,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
-       holder.bind(dataSource[position]);
+       holder.bind(dataSource.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return dataSource.length;
+        return dataSource.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

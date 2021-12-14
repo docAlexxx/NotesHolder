@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 
 import com.example.notesholder.ui.NotesAdapter;
 
+import java.util.List;
+
 public class NotesFragment extends Fragment {
 
 
@@ -25,15 +27,15 @@ public class NotesFragment extends Fragment {
         setHasOptionsMenu(true);
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Utils.setSubtitleName(actionBar, "Notes List");
-
         View root = inflater.inflate(R.layout.fragment_notes, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.recycler_notes_lines);
-        Notes[] data = Notes.notes;
+        List<Notes> data = Notes.notes;
+
         initRecyclerView(recyclerView, data);
         return root;
     }
 
-    private void initRecyclerView(RecyclerView recyclerView, Notes[] data) {
+    private void initRecyclerView(RecyclerView recyclerView, List<Notes> data) {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -45,9 +47,9 @@ public class NotesFragment extends Fragment {
 
             @Override
             public void onItemClick(View view, int position) {
-                Notes note = data[position];
+              //  Notes note = data.get(position);
                 Notes.currentIndex = position;
-                Notes currentNote = Notes.notes[position];
+                Notes currentNote = data.get(position);
                 showDescription(currentNote);
             }
         });
