@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="5dp"
-    android:layout_margin="10dp"
+    app:cardCornerRadius="@dimen/corner_radius"
+    app:cardElevation="@dimen/acrd_elevation"
+    android:layout_margin="@dimen/layout_margin"
     android:id="@+id/note_card"
-    app:strokeWidth="1dp"
+    app:strokeWidth="@dimen/stroke"
     app:strokeColor="@android:color/holo_blue_dark">
 
     <LinearLayout
