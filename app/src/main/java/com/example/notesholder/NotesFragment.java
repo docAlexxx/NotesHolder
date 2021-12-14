@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,7 +47,7 @@ public class NotesFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new NotesAdapter(data);
+        adapter = new NotesAdapter(data,this);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new NotesAdapter.OnItemClickListener() {
@@ -87,7 +88,6 @@ public class NotesFragment extends Fragment {
                 adapter.notifyItemInserted(data.size() - 1);
                 recyclerView.scrollToPosition(data.size() - 1);
                 return true;
-
             case R.id.clear_point:
                 data.clear();
                 adapter.notifyDataSetChanged();
@@ -95,5 +95,24 @@ public class NotesFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater menuInflater = requireActivity().getMenuInflater();
+        menuInflater.inflate(R.menu.notes_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.delete_point:
+                return true;
+            case R.id.change_point:
+                return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
 
 }

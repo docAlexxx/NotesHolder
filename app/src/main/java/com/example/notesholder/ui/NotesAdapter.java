@@ -1,12 +1,15 @@
 package com.example.notesholder.ui;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notesholder.Notes;
@@ -18,9 +21,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     List<Notes> dataSource;
     private OnItemClickListener itemClickListener;
+    private final Fragment fragment;
 
-    public NotesAdapter(List<Notes> dataSource) {
+    public NotesAdapter(List<Notes> dataSource, Fragment fragment) {
         this.dataSource = dataSource;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -32,7 +37,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
-       holder.bind(dataSource.get(position));
+        holder.bind(dataSource.get(position));
     }
 
     @Override
@@ -51,6 +56,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             name = itemView.findViewById(R.id.tv_name);
             date = itemView.findViewById(R.id.tv_date);
             card = itemView.findViewById(R.id.note_card);
+            registerContextMenu(itemView);
 
             card.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -60,11 +66,31 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                     }
                 }
             });
+
+            card.setOnLongClickListener(new View.OnLongClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public boolean onLongClick(View view) {
+                    itemView.showContextMenu(50, 50);
+                    return true;
+                }
+            });
+
         }
-        public void bind(Notes cardData){
+
+        public void bind(Notes cardData) {
             name.setText(cardData.name);
             date.setText(cardData.date);
-         }
+        }
+
+        private void registerContextMenu(@NonNull View itemView) {
+            if (fragment != null) {
+                fragment.registerForContextMenu(itemView);
+            }
+        }
+
+
+
 
     }
 
