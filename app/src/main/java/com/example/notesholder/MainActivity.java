@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements ChangeResult {
         if (Notes.currentIndex == -1) {
             int length = Notes.startLength;
             for (int i=0; i < length; i++){
-                Notes.notes.add( new Notes(i,"Note " + (i+1), "description" + (i + 1) + " and many other different words about something", "2" + (i + 1) + ".11.2021"));
+                Notes.notes.add( new Notes(i));
             }
         }
         if (savedInstanceState == null) {

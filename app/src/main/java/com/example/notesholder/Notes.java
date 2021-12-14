@@ -25,6 +25,14 @@ public class Notes implements Parcelable {
         this.date = date;
     }
 
+    public Notes(int noteIndex) {
+        this.noteIndex = noteIndex;
+        this.name = "Note " + (noteIndex+1);
+        this.description = "description" + (noteIndex + 1) + " and many other different words about something";
+        this.date = "2" + (noteIndex + 1) + ".11.2021";
+    }
+
+
     protected Notes(Parcel in) {
         name = in.readString();
         description = in.readString();
@@ -63,6 +71,8 @@ public class Notes implements Parcelable {
         //  SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
         return name + "\n\n" + description + "\n\n" + date;
     }
+
+
 }
 
 

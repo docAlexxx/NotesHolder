@@ -11,7 +11,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +25,9 @@ import java.util.List;
 
 public class NotesFragment extends Fragment {
 
+    private RecyclerView recyclerView;
+    private List<Notes> data;
+    public NotesAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,26 +35,25 @@ public class NotesFragment extends Fragment {
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Utils.setSubtitleName(actionBar, "Notes List");
         View root = inflater.inflate(R.layout.fragment_notes, container, false);
-        RecyclerView recyclerView = root.findViewById(R.id.recycler_notes_lines);
-        List<Notes> data = Notes.notes;
-
-        initRecyclerView(recyclerView, data);
+        recyclerView = root.findViewById(R.id.recycler_notes_lines);
+        data = Notes.notes;
+        initRecyclerView();
         return root;
     }
 
-    private void initRecyclerView(RecyclerView recyclerView, List<Notes> data) {
+    private void initRecyclerView() {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        NotesAdapter adapter = new NotesAdapter(data);
+        adapter = new NotesAdapter(data);
         recyclerView.setAdapter(adapter);
 
         adapter.setOnItemClickListener(new NotesAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view, int position) {
-              //  Notes note = data.get(position);
+                //  Notes note = data.get(position);
                 Notes.currentIndex = position;
                 Notes currentNote = data.get(position);
                 showDescription(currentNote);
@@ -67,4 +73,27 @@ public class NotesFragment extends Fragment {
                 .addToBackStack("")
                 .commit();
     }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.list_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.add_point:
+                data.add(new Notes(data.size()));
+                adapter.notifyItemInserted(data.size() - 1);
+                recyclerView.scrollToPosition(data.size() - 1);
+                return true;
+
+            case R.id.clear_point:
+                data.clear();
+                adapter.notifyDataSetChanged();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
