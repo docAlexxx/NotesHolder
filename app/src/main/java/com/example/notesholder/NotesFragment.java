@@ -1,5 +1,7 @@
 package com.example.notesholder;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,9 +21,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.notesholder.ui.NotesAdapter;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesFragment extends Fragment {
@@ -29,26 +37,51 @@ public class NotesFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<Notes> data;
     public NotesAdapter adapter;
+    private SharedPreferences sharedPref = null;
+    public static final String KEY = "key";
+    ArrayList<Notes> userNotes = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
+        final ArrayList<Notes> userNotes = new ArrayList<>();
+        final NotesAdapter notesAdapter = new NotesAdapter(userNotes,this);
+
         Utils.setSubtitleName(actionBar, "Notes List");
         View root = inflater.inflate(R.layout.fragment_notes, container, false);
         recyclerView = root.findViewById(R.id.recycler_notes_lines);
         data = Notes.notes;
-        initRecyclerView();
+        initRecyclerView(notesAdapter);
+        String savedNotes = sharedPref.getString(KEY, null);
+        if (savedNotes == null || savedNotes.isEmpty()) {
+            Toast.makeText(getActivity(), "Empty", Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                Type type = new TypeToken<ArrayList<Notes>>() {
+                }.getType();
+                notesAdapter.setNewData(new GsonBuilder().create().fromJson(savedNotes, type));
+                for (int i =0; i<notesAdapter.getItemCount(); i++){
+                    userNotes.add(notesAdapter.getData(i));
+                }
+            } catch (JsonSyntaxException e) {
+                Toast.makeText(getActivity(), "Ошибка трансформации", Toast.LENGTH_SHORT).show();
+            }
+        }
         return root;
     }
 
-    private void initRecyclerView() {
+
+
+    private void initRecyclerView(NotesAdapter notesAdapter) {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new NotesAdapter(data, this);
-        recyclerView.setAdapter(adapter);
+    //    adapter = new NotesAdapter(userNotes, this);
+        recyclerView.setAdapter(notesAdapter);
+
 
         adapter.setOnItemClickListener(new NotesAdapter.OnItemClickListener() {
 

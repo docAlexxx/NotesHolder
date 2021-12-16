@@ -15,18 +15,29 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.notesholder.Notes;
 import com.example.notesholder.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    List<Notes> dataSource;
+    private ArrayList<Notes> dataSource;
+   // List<Notes> dataSource;
     private OnItemClickListener itemClickListener;
     private final Fragment fragment;
     private int menuPosition;
 
-    public NotesAdapter(List<Notes> dataSource, Fragment fragment) {
+    public NotesAdapter(ArrayList<Notes> dataSource, Fragment fragment) {
         this.dataSource = dataSource;
         this.fragment = fragment;
+    }
+
+    public Notes getData(int i) {
+        return dataSource.get(i);
+    }
+
+    public void setNewData(ArrayList<Notes> dataSet) {
+        this.dataSource = dataSet;
+        notifyDataSetChanged();
     }
 
     @NonNull
