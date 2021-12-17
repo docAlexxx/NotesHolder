@@ -1,7 +1,9 @@
 package com.example.notesholder;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.notesholder.ui.NotesAdapter;
+import com.google.gson.GsonBuilder;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link EditFragment#newInstance} factory method to
@@ -27,6 +32,7 @@ public class EditFragment extends Fragment implements ChangeResult {
 
     static final String ARG_INDEX_2 = "index";
     private Notes notes;
+    private SharedPreferences sharedPref = null;
 
     public EditFragment() {
         // Required empty public constructor
@@ -51,6 +57,7 @@ public class EditFragment extends Fragment implements ChangeResult {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         if (getArguments() != null) {
             notes = (Notes) getArguments().getParcelable(ARG_INDEX_2);
         }
@@ -86,6 +93,8 @@ public class EditFragment extends Fragment implements ChangeResult {
             buttonSafe.setOnClickListener(v -> {
                 dialogOnSafe();
                 notes.description = editScreen.getText().toString();
+                String jsonNotes = new GsonBuilder().create().toJson(Notes.notes);
+                sharedPref.edit().putString(Notes.KEY, jsonNotes).apply();
             });
         }
     }

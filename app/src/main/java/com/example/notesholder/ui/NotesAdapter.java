@@ -52,6 +52,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         return dataSource.size();
     }
 
+    public Notes getData(int i) {
+        return dataSource.get(i);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView name;
