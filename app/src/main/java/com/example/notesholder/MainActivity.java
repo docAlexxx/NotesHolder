@@ -11,29 +11,50 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.notesholder.ui.NotesAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ChangeResult {
 
     private Resources resource;
+    private SharedPreferences sharedPref = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (Notes.currentIndex == -1) {
-            int length = Notes.startLength;
-            for (int i=0; i < length; i++){
-                Notes.notes.add( new Notes(i));
+        sharedPref = getPreferences(MODE_PRIVATE);
+
+        Notes.notes = new ArrayList<>();
+
+        String savedNotes = sharedPref.getString(Notes.KEY, null);
+        if (savedNotes == null || savedNotes.isEmpty()) {
+            Toast.makeText(this, "Empty", Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                Type type = new TypeToken<ArrayList<Notes>>() {
+                }.getType();
+                Notes.notes = new GsonBuilder().create().fromJson(savedNotes, type);
+            } catch (JsonSyntaxException e) {
+                Toast.makeText(this, "Ошибка трансформации", Toast.LENGTH_SHORT).show();
             }
         }
+
         if (savedInstanceState == null) {
             addFragment(new NotesFragment());
         }
@@ -145,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements ChangeResult {
 
     @Override
     public void onChangeResult(String name, String date) {
-        Notes.notes.get(Notes.currentIndex).name=name;
+        Notes.notes.get(Notes.currentIndex).name = name;
         Notes.notes.get(Notes.currentIndex).date = date;
     }
 }

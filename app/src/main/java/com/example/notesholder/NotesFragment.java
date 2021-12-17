@@ -1,5 +1,7 @@
 package com.example.notesholder;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,16 +21,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.notesholder.ui.NotesAdapter;
+import com.google.gson.GsonBuilder;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class NotesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private List<Notes> data;
+    private ArrayList<Notes> data;
     public NotesAdapter adapter;
+    private SharedPreferences sharedPref = null;
+
+    private void toSharedPref() {
+        String jsonNotes = new GsonBuilder().create().toJson(Notes.notes);
+        sharedPref.edit().putString(Notes.KEY, jsonNotes).apply();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,8 +47,8 @@ public class NotesFragment extends Fragment {
         Utils.setSubtitleName(actionBar, "Notes List");
         View root = inflater.inflate(R.layout.fragment_notes, container, false);
         recyclerView = root.findViewById(R.id.recycler_notes_lines);
-        data = Notes.notes;
         initRecyclerView();
+        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         return root;
     }
 
@@ -46,17 +56,14 @@ public class NotesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-
-        adapter = new NotesAdapter(data, this);
+        adapter = new NotesAdapter(Notes.notes, this);
         recyclerView.setAdapter(adapter);
-
         adapter.setOnItemClickListener(new NotesAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view, int position) {
-                //  Notes note = data.get(position);
                 Notes.currentIndex = position;
-                Notes currentNote = data.get(position);
+                Notes currentNote = Notes.notes.get(position);
                 showDescription(currentNote);
             }
         });
@@ -84,16 +91,18 @@ public class NotesFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_point:
-                int size = data.size();
-                data.add(new Notes(size, "Note " + (size + 1), "", (size + 1) + ".11.2021"));
+                int size = Notes.notes.size();
+                Notes.notes.add(new Notes(size, "Note " + (size + 1), "", (size + 1) + ".11.2021"));
                 adapter.notifyItemInserted(size);
                 recyclerView.scrollToPosition(size);
-                Notes.currentIndex=size;
-                showEditScreen(data.get(size));
+                Notes.currentIndex = size;
+                showEditScreen(Notes.notes.get(size));
+                toSharedPref();
                 return true;
             case R.id.clear_point:
-                data.clear();
+                Notes.notes.clear();
                 adapter.notifyDataSetChanged();
+                toSharedPref();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -111,11 +120,13 @@ public class NotesFragment extends Fragment {
         int position = adapter.getMenuPosition();
         switch (item.getItemId()) {
             case R.id.delete_point:
-                data.remove(position);
+                Notes.notes.remove(position);
                 adapter.notifyItemRemoved(position);
+                toSharedPref();
                 return true;
             case R.id.change_point:
-                showEditScreen(data.get(position));
+                showEditScreen(Notes.notes.get(position));
+                toSharedPref();
                 return true;
         }
         return super.onContextItemSelected(item);
