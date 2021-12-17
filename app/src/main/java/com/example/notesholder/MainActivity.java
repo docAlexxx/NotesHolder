@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements ChangeResult {
 
     private Resources resource;
@@ -28,12 +30,16 @@ public class MainActivity extends AppCompatActivity implements ChangeResult {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (Notes.currentIndex == -1) {
-            int length = Notes.startLength;
-            for (int i=0; i < length; i++){
-                Notes.notes.add( new Notes(i));
-            }
-        }
+
+     //   if (Notes.currentIndex == -1) {
+     //       int length = Notes.startLength;
+     //       for (int i=0; i < length; i++){
+     //          Notes.notes.add( new Notes(i));
+     //       }
+     //   }
+
+        Notes.notes = new ArrayList<>();
+
         if (savedInstanceState == null) {
             addFragment(new NotesFragment());
         }

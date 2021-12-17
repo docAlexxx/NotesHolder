@@ -22,12 +22,13 @@ import android.view.ViewGroup;
 
 import com.example.notesholder.ui.NotesAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private List<Notes> data;
+    private ArrayList<Notes> data;
     public NotesAdapter adapter;
 
     @Override

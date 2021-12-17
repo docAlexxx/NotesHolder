@@ -14,7 +14,7 @@ public class Notes implements Parcelable {
     public String date;
     public int noteIndex;
     //  static Notes[] notes =new Notes[10];
-    static List<Notes> notes = new ArrayList<>(10);
+    static ArrayList<Notes> notes;
     static int currentIndex = -1;
     static int startLength = 10;
 
