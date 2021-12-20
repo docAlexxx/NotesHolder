@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="name_text">#3F51B5</color>
+    <color name="settings_main_text_color">#2196F3</color>
+    <color name="settings_text_color">#1633C3</color>
 </resources>

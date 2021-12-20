@@ -4,22 +4,24 @@
     <item
         android:id="@+id/about_point"
         android:title="About"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:orderInCategory="10"
+        android:orderInCategory="15"
         />
     <item
         android:id="@+id/exit_point"
         android:title="Exit"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:orderInCategory="30"
         />
     <item
         android:id="@+id/settings_point"
         android:title="Settings"
         android:icon="@android:drawable/ic_menu_manage"
-        app:showAsAction="always"
+        app:showAsAction="never"
         android:orderInCategory="20"
         />
+
+
  </menu>

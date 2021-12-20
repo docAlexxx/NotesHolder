@@ -1,16 +1,22 @@
 package com.example.notesholder;
 
+import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Notes implements Parcelable {
     public String name;
     public String description;
     public String date;
     public int noteIndex;
-    static Notes[] notes =new Notes[10];
-    static int currentIndex=-1;
+    //  static Notes[] notes =new Notes[10];
+    static List<Notes> notes = new ArrayList<>(10);
+    static int currentIndex = -1;
+    static int startLength = 10;
 
     public Notes(int noteIndex, String name, String description, String date) {
         this.noteIndex = noteIndex;
@@ -18,6 +24,14 @@ public class Notes implements Parcelable {
         this.description = description;
         this.date = date;
     }
+
+    public Notes(int noteIndex) {
+        this.noteIndex = noteIndex;
+        this.name = "Note " + (noteIndex+1);
+        this.description = "description" + (noteIndex + 1) + " and many other different words about something";
+        this.date =  (noteIndex + 1) + ".11.2021";
+    }
+
 
     protected Notes(Parcel in) {
         name = in.readString();
@@ -57,4 +71,8 @@ public class Notes implements Parcelable {
         //  SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
         return name + "\n\n" + description + "\n\n" + date;
     }
+
+
 }
+
+

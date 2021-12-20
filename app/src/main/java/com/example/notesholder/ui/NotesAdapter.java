@@ -1,24 +1,32 @@
 package com.example.notesholder.ui;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.notesholder.Notes;
 import com.example.notesholder.R;
 
+import java.util.List;
+
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    private Notes[] dataSource;
+    List<Notes> dataSource;
     private OnItemClickListener itemClickListener;
+    private final Fragment fragment;
+    private int menuPosition;
 
-    public NotesAdapter(Notes[] dataSource) {
+    public NotesAdapter(List<Notes> dataSource, Fragment fragment) {
         this.dataSource = dataSource;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -30,12 +38,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
-       holder.bind(dataSource[position]);
+        holder.bind(dataSource.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return dataSource.length;
+        return dataSource.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -49,6 +57,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
             name = itemView.findViewById(R.id.tv_name);
             date = itemView.findViewById(R.id.tv_date);
             card = itemView.findViewById(R.id.note_card);
+            registerContextMenu(itemView);
 
             card.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -58,12 +67,36 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                     }
                 }
             });
+
+            card.setOnLongClickListener(new View.OnLongClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public boolean onLongClick(View view) {
+                    itemView.showContextMenu(50, 50);
+                    menuPosition = getLayoutPosition();
+                    return true;
+                }
+            });
+
         }
-        public void bind(Notes cardData){
+
+        public void bind(Notes cardData) {
             name.setText(cardData.name);
             date.setText(cardData.date);
-         }
+        }
 
+        private void registerContextMenu(@NonNull View itemView) {
+            if (fragment != null) {
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        menuPosition = getLayoutPosition();
+                        return false;
+                    }
+                });
+                fragment.registerForContextMenu(itemView);
+            }
+        }
     }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
@@ -72,5 +105,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     public interface OnItemClickListener {
         void onItemClick(View v, int position);
+    }
+
+    public int getMenuPosition() {
+        return menuPosition;
     }
 }

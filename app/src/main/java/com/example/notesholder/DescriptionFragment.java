@@ -89,7 +89,7 @@ public class DescriptionFragment extends Fragment {
         }
     }
 
-    private void showEditScreen(Notes notes) {
+    public void showEditScreen(Notes notes) {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container, EditFragment.newInstance(notes))

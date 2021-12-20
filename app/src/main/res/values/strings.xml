@@ -15,4 +15,9 @@
     <string name="submit_button">Submit</string>
     <string name="new_name">New name</string>
     <string name="new_date">New date</string>
+    <string name="add_new_note">add new Note</string>
+    <string name="clear_all">clear all</string>
+    <string name="change">change</string>
+    <string name="delete">delete</string>
+    <string name="list_name">List</string>
 </resources>

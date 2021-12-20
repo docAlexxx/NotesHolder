@@ -7,4 +7,15 @@
     <dimen name="margin_top_info">20dp</dimen>
     <dimen name="margin_start">30dp</dimen>
     <dimen name="list_text_size">50sp</dimen>
+    <dimen name="question_button">20sp</dimen>
+    <dimen name="settings_main_text">30sp</dimen>
+    <dimen name="settings_text_size">20sp</dimen>
+    <dimen name="settings_margin">20dp</dimen>
+    <dimen name="settings_margin_start">10dp</dimen>
+    <dimen name="settings_taxt_size">20sp</dimen>
+    <dimen name="navigation_drawer_text">25sp</dimen>
+    <dimen name="corner_radius">10dp</dimen>
+    <dimen name="acrd_elevation">5dp</dimen>
+    <dimen name="layout_margin">10dp</dimen>
+    <dimen name="stroke">1dp</dimen>
 </resources>
