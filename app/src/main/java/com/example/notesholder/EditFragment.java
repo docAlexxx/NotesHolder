@@ -23,6 +23,8 @@ import android.widget.TextView;
 import com.example.notesholder.ui.NotesAdapter;
 import com.google.gson.GsonBuilder;
 
+import java.util.Date;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link EditFragment#newInstance} factory method to
@@ -69,7 +71,6 @@ public class EditFragment extends Fragment implements ChangeResult {
         setHasOptionsMenu(true);
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Utils.setSubtitleName(actionBar, "Edit");
-
         return inflater.inflate(R.layout.fragment_edit, container, false);
     }
 
@@ -125,7 +126,7 @@ public class EditFragment extends Fragment implements ChangeResult {
     }
 
     @Override
-    public void onChangeResult(String name, String date) {
+    public void onChangeResult(String name, Date date) {
 
 
     }

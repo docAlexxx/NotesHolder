@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.notesholder.Notes;
 import com.example.notesholder.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +93,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
         public void bind(Notes cardData) {
             name.setText(cardData.name);
-            date.setText(cardData.date);
+            date.setText(new SimpleDateFormat("dd-MMM-yyyy").format(cardData.date));
         }
 
         private void registerContextMenu(@NonNull View itemView) {

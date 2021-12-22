@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:text="Name"
+            android:textColor="#007ADC"
             android:textAlignment="viewEnd"
             android:textSize="@dimen/text_size"/>
 
@@ -41,7 +42,10 @@
             android:text="Date"
             android:textAlignment="viewStart"
             android:gravity="center"
+            android:textStyle="italic"
             android:textSize="@dimen/date_text_size"
+            android:textColor="@color/black"
+
             tools:ignore="RtlCompat" />
 
     </LinearLayout>

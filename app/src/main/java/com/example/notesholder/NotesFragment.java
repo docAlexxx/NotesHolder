@@ -26,14 +26,17 @@ import android.widget.Toast;
 import com.example.notesholder.ui.NotesAdapter;
 import com.google.gson.GsonBuilder;
 
+
 import java.util.ArrayList;
+import java.util.Date;
 
 public class NotesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private ArrayList<Notes> data;
+  //  private ArrayList<Notes> data;
     public NotesAdapter adapter;
     private SharedPreferences sharedPref = null;
+    Date current = new Date();
 
     private void toSharedPref() {
         String jsonNotes = new GsonBuilder().create().toJson(Notes.notes);
@@ -92,7 +95,7 @@ public class NotesFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.add_point:
                 int size = Notes.notes.size();
-                Notes.notes.add(new Notes(size, "Note " + (size + 1), "", (size + 1) + ".11.2021"));
+                Notes.notes.add(new Notes(size, "Note " + (size + 1), "", current));
                 adapter.notifyItemInserted(size);
                 recyclerView.scrollToPosition(size);
                 Notes.currentIndex = size;

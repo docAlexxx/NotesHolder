@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DescriptionFragment#newInstance} factory method to
@@ -75,7 +77,7 @@ public class DescriptionFragment extends Fragment {
 
             tvName.setText(notes.name);
             tvDescription.setText(notes.description);
-            tvDate.setText(notes.date);
+            tvDate.setText(new SimpleDateFormat("dd-MMM-yyyy").format(notes.date));
 
             ImageView buttonBack = view.findViewById(R.id.back_button1);
             buttonBack.setOnClickListener(v -> {

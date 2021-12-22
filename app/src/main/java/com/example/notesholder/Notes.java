@@ -7,35 +7,29 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Notes implements Parcelable {
     public String name;
     public String description;
-    public String date;
+    public Date date;
     public int noteIndex;
     static ArrayList<Notes> notes;
     static int currentIndex = -1;
     public static final String KEY = "key";
 
-    public Notes(int noteIndex, String name, String description, String date) {
+    public Notes(int noteIndex, String name, String description, Date date) {
         this.noteIndex = noteIndex;
         this.name = name;
         this.description = description;
         this.date = date;
     }
 
-    public Notes(int noteIndex) {
-        this.noteIndex = noteIndex;
-        this.name = "Note " + (noteIndex + 1);
-        this.description = "description" + (noteIndex + 1) + " and many other different words about something";
-        this.date = (noteIndex + 1) + ".11.2021";
-    }
-
     protected Notes(Parcel in) {
         name = in.readString();
         description = in.readString();
-        date = in.readString();
+        date = new Date(in.readLong());
         noteIndex = in.readInt();
     }
 
@@ -43,7 +37,7 @@ public class Notes implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(description);
-        dest.writeString(date);
+        dest.writeLong(date.getTime());
         dest.writeInt(noteIndex);
     }
 

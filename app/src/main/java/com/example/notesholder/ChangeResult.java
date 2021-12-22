@@ -1,6 +1,7 @@
 package com.example.notesholder;
 
-public interface ChangeResult {
-    void onChangeResult(String name, String date);
+import java.util.Date;
 
+public interface ChangeResult {
+    void onChangeResult(String name, Date date);
 }

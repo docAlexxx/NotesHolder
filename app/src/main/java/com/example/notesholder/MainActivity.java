@@ -27,12 +27,12 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements ChangeResult {
 
     private Resources resource;
     private SharedPreferences sharedPref = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements ChangeResult {
     }
 
     @Override
-    public void onChangeResult(String name, String date) {
+    public void onChangeResult(String name, Date date) {
         Notes.notes.get(Notes.currentIndex).name = name;
         Notes.notes.get(Notes.currentIndex).date = date;
     }
