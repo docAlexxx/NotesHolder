@@ -13,6 +13,7 @@ public class Utils {
     public static void setSubtitleName(ActionBar actionBar, String name) {
         if (actionBar != null) {
             actionBar.setSubtitle(name);
+            //
         }
     }
 }
