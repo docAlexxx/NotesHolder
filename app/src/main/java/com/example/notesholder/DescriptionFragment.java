@@ -62,7 +62,6 @@ public class DescriptionFragment extends Fragment {
         setHasOptionsMenu(true);
         ActionBar actionBar = ((AppCompatActivity) requireActivity()).getSupportActionBar();
         Utils.setSubtitleName(actionBar, "Description");
-
         return inflater.inflate(R.layout.fragment_description, container, false);
     }
 

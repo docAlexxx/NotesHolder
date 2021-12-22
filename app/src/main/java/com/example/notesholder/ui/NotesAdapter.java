@@ -88,7 +88,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                     return true;
                 }
             });
-
         }
 
         public void bind(Notes cardData) {

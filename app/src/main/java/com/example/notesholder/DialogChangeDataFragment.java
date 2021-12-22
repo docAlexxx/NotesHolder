@@ -31,11 +31,9 @@ public class DialogChangeDataFragment extends DialogFragment {
         editDate = customView.findViewById(R.id.inputDate);
         editName.setText((CharSequence) Notes.notes.get(Notes.currentIndex).name);
         initDatePicker(Notes.notes.get(Notes.currentIndex).date);
-        // editDate.setText((CharSequence) Notes.notes.get(Notes.currentIndex).date);
 
         customView.findViewById(R.id.button_submit).setOnClickListener(view -> {
             String name = editName.getText().toString();
-            //String date = editDate.getText().toString();
             Date date = getDateFromDatePicker();
             dialogResult.onChangeResult(name, date);
             String jsonNotes = new GsonBuilder().create().toJson(Notes.notes);
@@ -50,8 +48,6 @@ public class DialogChangeDataFragment extends DialogFragment {
         setCancelable(false);
         return customView;
     }
-
-
 
     private void initDatePicker(Date date) {
         Calendar calendar = Calendar.getInstance();

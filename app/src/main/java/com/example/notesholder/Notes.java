@@ -1,14 +1,11 @@
 package com.example.notesholder;
 
-import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
 
 public class Notes implements Parcelable {
     public String name;
@@ -57,13 +54,6 @@ public class Notes implements Parcelable {
             return new Notes[size];
         }
     };
-
-    @NonNull
-    @Override
-    public String toString() {
-        //  SimpleDateFormat formatDate = new SimpleDateFormat("dd.MM.yyyy");
-        return name + "\n\n" + description + "\n\n" + date;
-    }
 
 }
 

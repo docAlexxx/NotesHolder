@@ -21,19 +21,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.notesholder.ui.NotesAdapter;
 import com.google.gson.GsonBuilder;
 
-
-import java.util.ArrayList;
 import java.util.Date;
 
 public class NotesFragment extends Fragment {
 
     private RecyclerView recyclerView;
-  //  private ArrayList<Notes> data;
     public NotesAdapter adapter;
     private SharedPreferences sharedPref = null;
     Date current = new Date();

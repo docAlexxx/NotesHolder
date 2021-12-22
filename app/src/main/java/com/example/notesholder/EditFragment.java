@@ -20,9 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.notesholder.ui.NotesAdapter;
 import com.google.gson.GsonBuilder;
-
 import java.util.Date;
 
 /**
@@ -127,7 +125,6 @@ public class EditFragment extends Fragment implements ChangeResult {
 
     @Override
     public void onChangeResult(String name, Date date) {
-
 
     }
 

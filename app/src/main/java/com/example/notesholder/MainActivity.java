@@ -31,7 +31,6 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements ChangeResult {
 
-    private Resources resource;
     private SharedPreferences sharedPref = null;
 
     @Override
