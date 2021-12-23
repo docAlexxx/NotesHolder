@@ -1,18 +1,19 @@
-package com.example.notesholder;
+package com.example.notesholder
 
-import android.content.res.Configuration;
-import android.content.res.Resources;
+import android.content.res.Configuration
+import android.content.res.Resources
+import androidx.appcompat.app.ActionBar
 
-import androidx.appcompat.app.ActionBar;
-
-public class Utils {
-    public static boolean isLandscape(Resources res) {
-        return res.getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE;
+object Utils {
+    fun isLandscape(res: Resources): Boolean {
+        return (res.configuration.orientation
+                == Configuration.ORIENTATION_LANDSCAPE)
     }
-    public static void setSubtitleName(ActionBar actionBar, String name) {
+
+    @JvmStatic
+    fun setSubtitleName(actionBar: ActionBar?, name: String?) {
         if (actionBar != null) {
-            actionBar.setSubtitle(name);
+            actionBar.subtitle = name
             //
         }
     }
