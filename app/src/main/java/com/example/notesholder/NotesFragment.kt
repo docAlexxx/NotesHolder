@@ -40,7 +40,7 @@ class NotesFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_notes, container, false)
         recyclerView = root.findViewById(R.id.recycler_notes_lines)
         initRecyclerView()
-        sharedPref = activity!!.getPreferences(Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         return root
     }
 
