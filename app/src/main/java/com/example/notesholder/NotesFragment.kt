@@ -48,10 +48,10 @@ class NotesFragment : Fragment() {
         recyclerView!!.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(context)
         recyclerView!!.layoutManager = layoutManager
-        adapter = NotesAdapter(Notes.notes, this)
+        adapter = NotesAdapter(Notes.notes!!, this)
         recyclerView!!.adapter = adapter
         adapter!!.setOnItemClickListener { view, position ->
-            Notes.currentIndex = position
+            Notes.currentIndex = position as Int
             val currentNote = Notes.notes!![position]
             showDescription(currentNote)
         }

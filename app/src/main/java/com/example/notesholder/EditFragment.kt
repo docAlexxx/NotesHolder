@@ -32,9 +32,9 @@ class EditFragment : Fragment(), ChangeResult {
     private var sharedPref: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPref = activity!!.getPreferences(Context.MODE_PRIVATE)
+        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
         if (arguments != null) {
-            notes = arguments!!.getParcelable<Parcelable>(ARG_INDEX_2) as Notes?
+            notes = requireArguments().getParcelable<Parcelable>(ARG_INDEX_2) as Notes?
         }
     }
 
@@ -87,7 +87,7 @@ class EditFragment : Fragment(), ChangeResult {
         )
     }
 
-    override fun onChangeResult(name: String, date: Date) {}
+    override fun onChangeResult(name: String?, date: Date?) {}
 
     companion object {
         const val ARG_INDEX_2 = "index"
