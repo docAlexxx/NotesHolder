@@ -1,69 +1,65 @@
-package com.example.notesholder;
+package com.example.notesholder
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.EditText;
+import android.content.Context
+import android.content.SharedPreferences
+import android.widget.DatePicker
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.os.Bundle
+import android.view.View
+import com.example.notesholder.R
+import com.example.notesholder.ChangeResult
+import android.widget.EditText
+import androidx.fragment.app.DialogFragment
+import com.google.gson.GsonBuilder
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-
-import com.google.gson.GsonBuilder;
-
-import java.util.Calendar;
-import java.util.Date;
-
-public class DialogChangeDataFragment extends DialogFragment {
-    private SharedPreferences sharedPref = null;
-    DatePicker editDate;
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View customView = inflater.inflate(R.layout.datachange_view, null);
-        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        ChangeResult dialogResult = (ChangeResult) requireActivity();
-        EditText editName = customView.findViewById(R.id.edit_text_name);
-        editDate = customView.findViewById(R.id.inputDate);
-        editName.setText((CharSequence) Notes.notes.get(Notes.currentIndex).name);
-        initDatePicker(Notes.notes.get(Notes.currentIndex).date);
-
-        customView.findViewById(R.id.button_submit).setOnClickListener(view -> {
-            String name = editName.getText().toString();
-            Date date = getDateFromDatePicker();
-            dialogResult.onChangeResult(name, date);
-            String jsonNotes = new GsonBuilder().create().toJson(Notes.notes);
-            sharedPref.edit().putString(Notes.KEY, jsonNotes).apply();
-            dismiss();
-        });
-
-        customView.findViewById(R.id.button_cancel).setOnClickListener(view -> {
-            dismiss();
-        });
-
-        setCancelable(false);
-        return customView;
+class DialogChangeDataFragment : DialogFragment() {
+    private var sharedPref: SharedPreferences? = null
+    var editDate: DatePicker? = null
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val customView = inflater.inflate(R.layout.datachange_view, null)
+        sharedPref = requireActivity().getPreferences(Context.MODE_PRIVATE)
+        val dialogResult = requireActivity() as ChangeResult
+        val editName = customView.findViewById<EditText>(R.id.edit_text_name)
+        editDate = customView.findViewById(R.id.inputDate)
+        editName.setText(Notes.notes[Notes.currentIndex].name as CharSequence)
+        initDatePicker(Notes.notes[Notes.currentIndex].date)
+        customView.findViewById<View>(R.id.button_submit).setOnClickListener { view: View? ->
+            val name = editName.text.toString()
+            val date = dateFromDatePicker
+            dialogResult.onChangeResult(name, date)
+            val jsonNotes = GsonBuilder().create().toJson(Notes.notes)
+            sharedPref!!.edit().putString(Notes.KEY, jsonNotes).apply()
+            dismiss()
+        }
+        customView.findViewById<View>(R.id.button_cancel)
+            .setOnClickListener { view: View? -> dismiss() }
+        isCancelable = false
+        return customView
     }
 
-    private void initDatePicker(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        this.editDate.init(calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH),
-                null);
+    private fun initDatePicker(date: Date) {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        editDate!!.init(
+            calendar[Calendar.YEAR],
+            calendar[Calendar.MONTH],
+            calendar[Calendar.DAY_OF_MONTH],
+            null
+        )
     }
 
-    private Date getDateFromDatePicker() {
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, this.editDate.getYear());
-        cal.set(Calendar.MONTH, this.editDate.getMonth());
-        cal.set(Calendar.DAY_OF_MONTH, this.editDate.getDayOfMonth());
-        return cal.getTime();
-    }
-
+    private val dateFromDatePicker: Date
+        private get() {
+            val cal = Calendar.getInstance()
+            cal[Calendar.YEAR] = editDate!!.year
+            cal[Calendar.MONTH] = editDate!!.month
+            cal[Calendar.DAY_OF_MONTH] = editDate!!.dayOfMonth
+            return cal.time
+        }
 }
