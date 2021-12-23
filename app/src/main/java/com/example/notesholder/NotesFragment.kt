@@ -52,7 +52,7 @@ class NotesFragment : Fragment() {
         recyclerView!!.adapter = adapter
         adapter!!.setOnItemClickListener { view, position ->
             Notes.currentIndex = position
-            val currentNote = Notes.notes[position]
+            val currentNote = Notes.notes!![position]
             showDescription(currentNote)
         }
     }
@@ -76,17 +76,17 @@ class NotesFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_point -> {
-                val size = Notes.notes.size
-                Notes.notes.add(Notes(size, "Note " + (size + 1), "", current))
+                val size = Notes.notes!!.size
+                Notes.notes!!.add(Notes(size, "Note " + (size + 1), "", current))
                 adapter!!.notifyItemInserted(size)
                 recyclerView!!.scrollToPosition(size)
                 Notes.currentIndex = size
-                showEditScreen(Notes.notes[size])
+                showEditScreen(Notes.notes!![size])
                 toSharedPref()
                 return true
             }
             R.id.clear_point -> {
-                Notes.notes.clear()
+                Notes.notes!!.clear()
                 adapter!!.notifyDataSetChanged()
                 toSharedPref()
                 return true
@@ -105,13 +105,13 @@ class NotesFragment : Fragment() {
         val position = adapter!!.menuPosition
         when (item.itemId) {
             R.id.delete_point -> {
-                Notes.notes.removeAt(position)
+                Notes.notes!!.removeAt(position)
                 adapter!!.notifyItemRemoved(position)
                 toSharedPref()
                 return true
             }
             R.id.change_point -> {
-                showEditScreen(Notes.notes[position])
+                showEditScreen(Notes.notes!![position])
                 toSharedPref()
                 return true
             }

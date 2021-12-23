@@ -1,60 +1,58 @@
-package com.example.notesholder;
+package com.example.notesholder
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.os.Parcelable
+import android.os.Parcel
+import android.os.Parcelable.Creator
+import java.util.*
 
-import java.util.ArrayList;
-import java.util.Date;
+class Notes : Parcelable {
+    @JvmField
+    var name: String?
+    var description: String?
+    @JvmField
+    var date: Date
+    var noteIndex: Int
 
-
-public class Notes implements Parcelable {
-    public String name;
-    public String description;
-    public Date date;
-    public int noteIndex;
-    static ArrayList<Notes> notes;
-    static int currentIndex = -1;
-    public static final String KEY = "key";
-
-    public Notes(int noteIndex, String name, String description, Date date) {
-        this.noteIndex = noteIndex;
-        this.name = name;
-        this.description = description;
-        this.date = date;
+    constructor(noteIndex: Int, name: String?, description: String?, date: Date) {
+        this.noteIndex = noteIndex
+        this.name = name
+        this.description = description
+        this.date = date
     }
 
-    protected Notes(Parcel in) {
-        name = in.readString();
-        description = in.readString();
-        date = new Date(in.readLong());
-        noteIndex = in.readInt();
+    protected constructor(`in`: Parcel) {
+        name = `in`.readString()
+        description = `in`.readString()
+        date = Date(`in`.readLong())
+        noteIndex = `in`.readInt()
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(description);
-        dest.writeLong(date.getTime());
-        dest.writeInt(noteIndex);
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeString(name)
+        dest.writeString(description)
+        dest.writeLong(date.time)
+        dest.writeInt(noteIndex)
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    override fun describeContents(): Int {
+        return 0
     }
 
-    public static final Creator<Notes> CREATOR = new Creator<Notes>() {
-        @Override
-        public Notes createFromParcel(Parcel in) {
-            return new Notes(in);
+    companion object {
+        @JvmField
+        var notes: ArrayList<Notes>? = null
+        @JvmField
+        var currentIndex = -1
+        const val KEY = "key"
+        @JvmField
+        val CREATOR: Creator<Notes?> = object : Creator<Notes?> {
+            override fun createFromParcel(`in`: Parcel): Notes? {
+                return Notes(`in`)
+            }
+
+            override fun newArray(size: Int): Array<Notes?> {
+                return arrayOfNulls(size)
+            }
         }
-
-        @Override
-        public Notes[] newArray(int size) {
-            return new Notes[size];
-        }
-    };
-
+    }
 }
-
-

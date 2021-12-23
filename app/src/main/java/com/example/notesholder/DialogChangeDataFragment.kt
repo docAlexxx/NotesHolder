@@ -27,8 +27,8 @@ class DialogChangeDataFragment : DialogFragment() {
         val dialogResult = requireActivity() as ChangeResult
         val editName = customView.findViewById<EditText>(R.id.edit_text_name)
         editDate = customView.findViewById(R.id.inputDate)
-        editName.setText(Notes.notes[Notes.currentIndex].name as CharSequence)
-        initDatePicker(Notes.notes[Notes.currentIndex].date)
+        editName.setText(Notes.notes!![Notes.currentIndex].name as CharSequence)
+        initDatePicker(Notes.notes!![Notes.currentIndex].date)
         customView.findViewById<View>(R.id.button_submit).setOnClickListener { view: View? ->
             val name = editName.text.toString()
             val date = dateFromDatePicker
