@@ -2,8 +2,6 @@ package com.example.notesholder
 
 import android.content.Context
 import com.example.notesholder.Utils.setSubtitleName
-import com.example.notesholder.DescriptionFragment.Companion.newInstance
-import com.example.notesholder.EditFragment.Companion.newInstance
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notesholder.ui.NotesAdapter
 import android.content.SharedPreferences
@@ -11,12 +9,10 @@ import com.google.gson.GsonBuilder
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.notesholder.R
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.notesholder.DescriptionFragment
 import android.view.ContextMenu.ContextMenuInfo
 import androidx.fragment.app.Fragment
-import com.example.notesholder.EditFragment
+import com.example.notesholder.ui.NotesAdapter.OnItemClickListener
 import java.util.*
 
 class NotesFragment : Fragment() {
@@ -50,11 +46,19 @@ class NotesFragment : Fragment() {
         recyclerView!!.layoutManager = layoutManager
         adapter = NotesAdapter(Notes.notes!!, this)
         recyclerView!!.adapter = adapter
-        adapter!!.setOnItemClickListener { view, position ->
-            Notes.currentIndex = position as Int
-            val currentNote = Notes.notes!![position]
-            showDescription(currentNote)
+        adapter!!.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(v: View?, position: Int) {
+                Notes.currentIndex = position as Int
+                val currentNote = Notes.notes!![position]
+                showDescription(currentNote)
+            }
         }
+        )
+        //   adapter!!.setOnItemClickListener { view: View, position: Int ->
+        //       Notes.currentIndex = position as Int
+        //       val currentNote = Notes.notes!![position]
+        //       showDescription(currentNote)
+        //   }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -127,3 +131,4 @@ class NotesFragment : Fragment() {
             .commit()
     }
 }
+
